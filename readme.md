@@ -1,4 +1,4 @@
-#python-MIL-STD-1553B-wdm
+#python-MIL-STD-1553B
 Драйвер mil-std-1553B-совместимых плат компании ЭЛКУС, изменённый для сборки с помощью [swig](http://www.swig.org) под [python](http://www.python.org).
 
 ##Изменения в оригинальном драйвере
@@ -8,12 +8,21 @@
 ##Необходимые для сборки инструменты
 * swig (на момент написания 3.0.0)
 * python
-* mingw
+* mingw/cygwin(windows) или gcc(linux)
 
-Необходимо чтобы пути ко всем исполняемым файлам (swig, gcc, python) были прописаны в PATH операционной системы.
+Необходимо чтобы пути ко всем исполняемым файлам (swig, gcc, python) были прописаны в PATH операционной системы (windows).
 
 ##Сборка
+Windows:
 ```
 python setup.py build_ext --inplace -cmingw32
 ```
-Возможна сборка с cygwin вместо mingw.
+
+Linux:
+```
+python3 setup.py build_ext --inplace
+```
+
+В репозитории находятся также собранные бинарные версии драйвера для:
+* Linux 64, Python 3.4, версия драйвера 4.06
+* Windows 32, Python 3.3, версия драйвера 4.08
