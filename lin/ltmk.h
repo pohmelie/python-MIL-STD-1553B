@@ -583,6 +583,9 @@ void tmksetcwbits(TMK_DATA tmkSetControl);
 void tmkclrcwbits(TMK_DATA tmkClrControl);
 TMK_DATA_RET tmkgetcwbits(void);
 
+void tmkgetevd(TTmkEventData *pEvD);
+int tmkwaitevents(int maskEvents, int fWait);
+
 /*
 void bcdefintnorm(void (* UserNormBC)(TMK_DATA, TMK_DATA, TMK_DATA));
 void bcdefintexc(void (* UserExcBC)(TMK_DATA, TMK_DATA, TMK_DATA));

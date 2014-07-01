@@ -641,6 +641,14 @@ def tmkgetcwbits() -> "unsigned short" :
   return _ltmk.tmkgetcwbits()
 tmkgetcwbits = _ltmk.tmkgetcwbits
 
+def tmkgetevd(*args) -> "void" :
+  return _ltmk.tmkgetevd(*args)
+tmkgetevd = _ltmk.tmkgetevd
+
+def tmkwaitevents(*args) -> "int" :
+  return _ltmk.tmkwaitevents(*args)
+tmkwaitevents = _ltmk.tmkwaitevents
+
 def bcreset() -> "int" :
   return _ltmk.bcreset()
 bcreset = _ltmk.bcreset
