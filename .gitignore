@@ -1,3 +1,4 @@
 /__pycache__/
 /build/
 /WDMTMKv2_wrap.cpp
+*_wrap.c*
