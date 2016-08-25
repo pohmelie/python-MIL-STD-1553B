@@ -8,9 +8,10 @@ with open("_ltmk.h") as fin:
 
 ltmk = ffi.dlopen("./libltmk.so")
 
-ltmk.TmkOpen()
-ltmk.tmkconfig(0)
-ltmk.tmkselect(0)
+assert ltmk.TmkOpen() == 0
+assert ltmk.tmkconfig(0) == 0
+assert ltmk.tmkselect(0) == 0
 
 e = ffi.new("TTmkEventData *")
 ltmk.tmkgetevd(e)
+print("ok")
