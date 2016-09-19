@@ -31,7 +31,7 @@ int TmkOpen(void)
 //  int iTMK;
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   _hVTMK4VxD = open("/dev/tmk1553b", 0);
   if (_hVTMK4VxD < 0)
   {
@@ -68,7 +68,7 @@ void TmkClose(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   if (_hVTMK4VxD)
   {
     close(_hVTMK4VxD);
@@ -80,7 +80,7 @@ int tmkgetmaxn(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCtmkgetmaxn));
 }
 
@@ -92,7 +92,7 @@ int tmkconfig(int tmkNumber)
     tmkError =
 #endif
     ioctl(_hVTMK4VxD, TMK_IOCtmkconfig, tmkNumber));
-
+  
 }
 
 int tmkdone(int tmkNumber)
@@ -109,7 +109,7 @@ int tmkdone(int tmkNumber)
 */
   return (
 #ifdef USE_TMK_ERROR
-    tmkError =
+    tmkError = 
 #endif
     ioctl(_hVTMK4VxD, TMK_IOCtmkdone, tmkNumber));
 }
@@ -119,8 +119,8 @@ int tmkselect(int tmkNumber)
 //  _VTMK4tmkNumber = tmkNumber;
   return (
 #ifdef USE_TMK_ERROR
-    tmkError  =
-#endif
+    tmkError  = 
+#endif  
     ioctl(_hVTMK4VxD, TMK_IOCtmkselect, tmkNumber));
 }
 
@@ -128,7 +128,7 @@ int tmkselected(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (
 //  _VTMK4tmkNumber =
     ioctl(_hVTMK4VxD, TMK_IOCtmkselected));
@@ -138,23 +138,23 @@ TMK_DATA_RET tmkgetmode(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCtmkgetmode));
 }
 
 void tmksetcwbits(TMK_DATA tmkSetControl)
 {
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCtmksetcwbits, tmkSetControl);
 }
 
 void tmkclrcwbits(TMK_DATA tmkClrControl)
 {
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCtmksetcwbits, tmkClrControl);
 }
 
@@ -162,7 +162,7 @@ TMK_DATA_RET tmkgetcwbits(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCtmkgetcwbits));
 }
 
@@ -171,7 +171,7 @@ int tmkwaitevents(int maskEvents, int fWait)
   int _VTMK4Arg[2];
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   _VTMK4Arg[0] = maskEvents;
   _VTMK4Arg[1] = fWait;
   return (ioctl(_hVTMK4VxD, TMK_IOCtmkwaitevents, &_VTMK4Arg));
@@ -215,8 +215,8 @@ void tmkgetevd(TTmkEventData *pEvD)
   WORD _awVTMK4OutBuf[6];
 //  int _VTMK4Arg;
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCtmkgetevd, _awVTMK4OutBuf);
   pEvD->nInt = ((DWORD*)(_awVTMK4OutBuf))[0];
   switch (pEvD->wMode = _awVTMK4OutBuf[2])
@@ -225,19 +225,19 @@ void tmkgetevd(TTmkEventData *pEvD)
     switch (pEvD->nInt)
     {
     case 1:
-      pEvD->sub.bc.wResult = _awVTMK4OutBuf[3];
+      pEvD->bc.wResult = _awVTMK4OutBuf[3];
       break;
     case 2:
-      pEvD->sub.bc.wResult = _awVTMK4OutBuf[3];
-      pEvD->sub.bc.wAW1 = _awVTMK4OutBuf[4];
-      pEvD->sub.bc.wAW2 = _awVTMK4OutBuf[5];
+      pEvD->bc.wResult = _awVTMK4OutBuf[3];
+      pEvD->bc.wAW1 = _awVTMK4OutBuf[4];
+      pEvD->bc.wAW2 = _awVTMK4OutBuf[5];
       break;
     case 3:
-      pEvD->sub.bcx.wResultX = _awVTMK4OutBuf[3];
-      pEvD->sub.bcx.wBase = _awVTMK4OutBuf[4];
+      pEvD->bcx.wResultX = _awVTMK4OutBuf[3];
+      pEvD->bcx.wBase = _awVTMK4OutBuf[4];
       break;
     case 4:
-      pEvD->sub.bcx.wBase = _awVTMK4OutBuf[3];
+      pEvD->bcx.wBase = _awVTMK4OutBuf[3];
       break;
     }
     break;
@@ -245,11 +245,11 @@ void tmkgetevd(TTmkEventData *pEvD)
     switch (pEvD->nInt)
     {
     case 3:
-      pEvD->sub.mt.wResultX = _awVTMK4OutBuf[3];
-      pEvD->sub.mt.wBase = _awVTMK4OutBuf[4];
+      pEvD->mt.wResultX = _awVTMK4OutBuf[3];
+      pEvD->mt.wBase = _awVTMK4OutBuf[4];
       break;
     case 4:
-      pEvD->sub.mt.wBase = _awVTMK4OutBuf[3];
+      pEvD->mt.wBase = _awVTMK4OutBuf[3];
       break;
     }
     break;
@@ -257,27 +257,27 @@ void tmkgetevd(TTmkEventData *pEvD)
     switch (pEvD->nInt)
     {
     case 1:
-      pEvD->sub.rt.wCmd = _awVTMK4OutBuf[3];
+      pEvD->rt.wCmd = _awVTMK4OutBuf[3];
       break;
     case 2:
     case 3:
-      pEvD->sub.rt.wStatus = _awVTMK4OutBuf[3];
+      pEvD->rt.wStatus = _awVTMK4OutBuf[3];
       break;
     }
     break;
   case MRT_MODE:
-    pEvD->sub.mrt.wStatus = _awVTMK4OutBuf[3];
+    pEvD->mrt.wStatus = _awVTMK4OutBuf[3];
     break;
   case UNDEFINED_MODE:
-    pEvD->sub.tmk.wRequest = _awVTMK4OutBuf[3];
+    pEvD->tmk.wRequest = _awVTMK4OutBuf[3];
     break;
   }
 }
 void tmkgetinfo(TTmkConfigData *pConfD)
 {
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCtmkgetinfo, pConfD);
 }
 
@@ -308,8 +308,8 @@ int bcreset(void)
 {
   return (
 #ifdef USE_TMK_ERROR
-    tmkError =
-#endif
+    tmkError = 
+#endif  
     ioctl(_hVTMK4VxD, TMK_IOCbcreset));
 }
 
@@ -333,7 +333,7 @@ int bcdefirqmode(TMK_DATA bcIrqMode)
   return (
 #ifdef USE_TMK_ERROR
     tmkError =
-#endif
+#endif  
     ioctl(_hVTMK4VxD, TMK_IOCbcdefirqmode, bcIrqMode));
 }
 
@@ -341,7 +341,7 @@ TMK_DATA_RET bcgetirqmode(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCbcgetirqmode));
 }
 
@@ -349,7 +349,7 @@ TMK_DATA_RET bcgetmaxbase(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCbcgetmaxbase));
 }
 
@@ -358,7 +358,7 @@ int bcdefbase(TMK_DATA bcBasePC)
   return (
 #ifdef USE_TMK_ERROR
     tmkError =
-#endif
+#endif  
     ioctl(_hVTMK4VxD, TMK_IOCbcdefbase, bcBasePC));
 }
 
@@ -366,15 +366,15 @@ TMK_DATA_RET bcgetbase(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCbcgetbase));
 }
 
 void bcputw(TMK_DATA bcAddr, TMK_DATA bcData)
 {
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCbcputw, bcAddr | (bcData << 16));
 }
 
@@ -382,7 +382,7 @@ TMK_DATA_RET bcgetw(TMK_DATA bcAddr)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return ioctl(_hVTMK4VxD, TMK_IOCbcgetw, bcAddr);
 }
 
@@ -391,8 +391,8 @@ DWORD bcgetansw(TMK_DATA bcCtrlCode)
   DWORD _VTMK4Arg;
   _VTMK4Arg = bcCtrlCode;
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCbcgetansw, &_VTMK4Arg);
   return _VTMK4Arg;
 }
@@ -409,8 +409,8 @@ void bcputblk(TMK_DATA bcAddr, void *pcBuffer, TMK_DATA cwLength)
   *((DWORD*)_VTMK4Arg) = (DWORD)bcAddr | ((DWORD)cwLength << 16);
   _VTMK4Arg[1] = (ULONG)pcBuffer;
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCbcputblk, &_VTMK4Arg);
 }
 
@@ -426,8 +426,8 @@ void bcgetblk(TMK_DATA bcAddr, void *pcBuffer, TMK_DATA cwLength)
   *((DWORD*)_VTMK4Arg) = (DWORD)bcAddr | ((DWORD)cwLength << 16);
   _VTMK4Arg[1] = (ULONG)pcBuffer;
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCbcgetblk, _VTMK4Arg);
 }
 
@@ -436,7 +436,7 @@ int bcdefbus(TMK_DATA bcBus)
   return (
 #ifdef USE_TMK_ERROR
     tmkError =
-#endif
+#endif  
     ioctl(_hVTMK4VxD, TMK_IOCbcdefbus, bcBus));
 }
 
@@ -444,7 +444,7 @@ TMK_DATA_RET bcgetbus(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCbcgetbus));
 }
 
@@ -453,7 +453,7 @@ int bcstart(TMK_DATA bcBase, TMK_DATA bcCtrlCode)
   return (
 #ifdef USE_TMK_ERROR
     tmkError =
-#endif
+#endif  
     ioctl(_hVTMK4VxD, TMK_IOCbcstart, bcBase | (bcCtrlCode << 16)));
 }
 
@@ -462,7 +462,7 @@ int bcstartx(TMK_DATA bcBase, TMK_DATA bcCtrlCode)
   return (
 #ifdef USE_TMK_ERROR
     tmkError =
-#endif
+#endif  
     ioctl(_hVTMK4VxD, TMK_IOCbcstartx, bcBase | (bcCtrlCode << 16)));
 }
 
@@ -471,7 +471,7 @@ int bcdeflink(TMK_DATA bcBase, TMK_DATA bcCtrlCode)
   return (
 #ifdef USE_TMK_ERROR
     tmkError =
-#endif
+#endif  
     ioctl(_hVTMK4VxD, TMK_IOCbcdeflink, bcBase | (bcCtrlCode << 16)));
 }
 
@@ -479,8 +479,8 @@ DWORD bcgetlink(void)  // ???????????????????????????????????????
 {
   DWORD _VTMK4Arg;
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCbcgetlink, &_VTMK4Arg);
   return _VTMK4Arg;
 }
@@ -489,7 +489,7 @@ TMK_DATA_RET bcstop(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCbcstop));
 }
 
@@ -497,8 +497,8 @@ DWORD bcgetstate(void)
 {
   DWORD _VTMK4Arg;
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCbcgetstate, &_VTMK4Arg);
   return _VTMK4Arg;
 }
@@ -525,8 +525,8 @@ int rtreset(void)
 {
   return (
 #ifdef USE_TMK_ERROR
-    tmkError =
-#endif
+    tmkError = 
+#endif  
     ioctl(_hVTMK4VxD, TMK_IOCrtreset));
 }
 
@@ -534,8 +534,8 @@ int rtdefirqmode(TMK_DATA rtIrqMode)
 {
   return (
 #ifdef USE_TMK_ERROR
-    tmkError =
-#endif
+    tmkError = 
+#endif  
     ioctl(_hVTMK4VxD, TMK_IOCrtdefirqmode, rtIrqMode));
 }
 
@@ -543,7 +543,7 @@ TMK_DATA_RET rtgetirqmode(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCrtgetirqmode));
 }
 
@@ -552,7 +552,7 @@ int rtdefmode(TMK_DATA rtMode)
   return (
 #ifdef USE_TMK_ERROR
     tmkError =
-#endif
+#endif  
     ioctl(_hVTMK4VxD, TMK_IOCrtdefmode, rtMode));
 }
 
@@ -560,7 +560,7 @@ TMK_DATA_RET rtgetmode(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCrtgetmode));
 }
 
@@ -568,7 +568,7 @@ TMK_DATA_RET rtgetmaxpage(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCrtgetmaxpage));
 }
 
@@ -577,7 +577,7 @@ int rtdefpage(TMK_DATA rtPage)
   return (
 #ifdef USE_TMK_ERROR
     tmkError =
-#endif
+#endif  
     ioctl(_hVTMK4VxD, TMK_IOCrtdefpage, rtPage));
 }
 
@@ -585,7 +585,7 @@ TMK_DATA_RET rtgetpage(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCrtgetpage));
 }
 
@@ -594,7 +594,7 @@ int rtdefpagepc(TMK_DATA rtPagePC)
   return (
 #ifdef USE_TMK_ERROR
     tmkError =
-#endif
+#endif  
     ioctl(_hVTMK4VxD, TMK_IOCrtdefpagepc, rtPagePC));
 }
 
@@ -603,7 +603,7 @@ int rtdefpagebus(TMK_DATA rtPageBus)
   return (
 #ifdef USE_TMK_ERROR
     tmkError =
-#endif
+#endif  
     ioctl(_hVTMK4VxD, TMK_IOCrtdefpagebus, rtPageBus));
 }
 
@@ -611,7 +611,7 @@ TMK_DATA_RET rtgetpagepc(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCrtgetpagepc));
 }
 
@@ -619,7 +619,7 @@ TMK_DATA_RET rtgetpagebus(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCrtgetpagebus));
 }
 
@@ -628,7 +628,7 @@ int rtdefaddress(TMK_DATA rtAddress)
   return (
 #ifdef USE_TMK_ERROR
     tmkError =
-#endif
+#endif  
     ioctl(_hVTMK4VxD, TMK_IOCrtdefaddress, rtAddress));
 }
 
@@ -636,15 +636,15 @@ TMK_DATA_RET rtgetaddress(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCrtgetaddress));
 }
 
 void rtdefsubaddr(TMK_DATA rtDir, TMK_DATA rtSubAddr)
 {
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCrtdefsubaddr, rtDir | (rtSubAddr << 16));
 }
 
@@ -652,15 +652,15 @@ TMK_DATA_RET rtgetsubaddr(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCrtgetsubaddr));
 }
 
 void rtputw(TMK_DATA rtAddr, TMK_DATA rtData)
 {
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCrtputw, rtAddr | (rtData << 16));
 }
 
@@ -668,7 +668,7 @@ TMK_DATA_RET rtgetw(TMK_DATA rtAddr)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCrtgetw, rtAddr));
 }
 
@@ -684,8 +684,8 @@ void rtputblk(TMK_DATA rtAddr, void *pcBuffer, TMK_DATA cwLength)
   *((DWORD*)_VTMK4Arg) = (DWORD)rtAddr | ((DWORD)cwLength << 16);
   _VTMK4Arg[1] = (ULONG)pcBuffer;
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCrtputblk, &_VTMK4Arg);
 }
 
@@ -701,24 +701,24 @@ void rtgetblk(TMK_DATA rtAddr, void *pcBuffer, TMK_DATA cwLength)
   *((DWORD*)_VTMK4Arg) = (DWORD)rtAddr | ((DWORD)cwLength << 16);
   _VTMK4Arg[1] = (ULONG)pcBuffer;
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCrtgetblk, &_VTMK4Arg);
 }
 
 void rtsetanswbits(TMK_DATA rtSetControl)
 {
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCrtsetanswbits, rtSetControl);
 }
 
 void rtclranswbits(TMK_DATA rtClrControl)
 {
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCrtclranswbits, rtClrControl);
 }
 
@@ -726,7 +726,7 @@ TMK_DATA_RET rtgetanswbits(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCrtgetanswbits));
 }
 
@@ -742,8 +742,8 @@ void rtgetflags(void *pcBuffer, TMK_DATA rtDir, TMK_DATA rtFlagMin, TMK_DATA rtF
   *((DWORD*)_VTMK4Arg) = (DWORD)(rtDir | rtFlagMin) | ((DWORD)(rtDir | rtFlagMax) << 16);
   _VTMK4Arg[1] = (ULONG)pcBuffer;
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCrtgetflags, &_VTMK4Arg);
 }
 
@@ -759,24 +759,24 @@ void rtputflags(void *pcBuffer, TMK_DATA rtDir, TMK_DATA rtFlagMin, TMK_DATA rtF
   *((DWORD*)_VTMK4Arg) = (DWORD)(rtDir | rtFlagMin) | ((DWORD)(rtDir | rtFlagMax) << 16);
   _VTMK4Arg[1] = (ULONG)pcBuffer;
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCrtputflags, &_VTMK4Arg);
 }
 
 void rtsetflag(void)
 {
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCrtsetflag);
 }
 
 void rtclrflag(void)
 {
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCrtclrflag);
 }
 
@@ -784,7 +784,7 @@ TMK_DATA_RET rtgetflag(TMK_DATA rtDir, TMK_DATA rtSubAddr)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCrtgetflag, rtDir | (rtSubAddr << 16)));
 }
 
@@ -792,7 +792,7 @@ TMK_DATA_RET rtgetstate(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCrtgetstate));
 }
 
@@ -800,23 +800,23 @@ TMK_DATA_RET rtbusy(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCrtbusy));
 }
 
 void rtlock(TMK_DATA rtDir, TMK_DATA rtSubAddr)
 {
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCrtlock, rtDir | (rtSubAddr << 16));
 }
 
 void rtunlock(void)
 {
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCrtunlock);
 }
 
@@ -824,15 +824,15 @@ TMK_DATA_RET rtgetcmddata(TMK_DATA rtBusCommand)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCrtgetcmddata, rtBusCommand));
 }
 
 void rtputcmddata(TMK_DATA rtBusCommand, TMK_DATA rtData)
 {
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCrtputcmddata, rtBusCommand | (rtData << 16));
 }
 
@@ -854,7 +854,7 @@ int mtreset(void)
   return (
 #ifdef USE_TMK_ERROR
     tmkError =
-#endif
+#endif  
     ioctl(_hVTMK4VxD, TMK_IOCmtreset));
 }
 
@@ -862,7 +862,7 @@ TMK_DATA_RET mtgetsw(void)
 {
 #ifdef USE_TMK_ERROR
   tmkError = 0;
-#endif
+#endif  
   return (ioctl(_hVTMK4VxD, TMK_IOCmtgetsw));
 }
 
@@ -920,7 +920,7 @@ TMK_DATA_RET mrtgetstate(void)
 void mrtdefbrcsubaddr0(void)
 {
 #ifdef USE_TMK_ERROR
-  tmkError =
+  tmkError = 
 #endif
   ioctl(_hVTMK4VxD, TMK_IOCmrtdefbrcsubaddr0);
 }
@@ -930,7 +930,7 @@ int mrtreset(void)
   return (
 #ifdef USE_TMK_ERROR
     tmkError =
-#endif
+#endif  
     ioctl(_hVTMK4VxD, TMK_IOCmrtreset));
 }
 #endif //def _TMK1553B_MRT
@@ -947,8 +947,8 @@ DWORD tmkgettimer(void)
 {
   DWORD _VTMK4Arg;
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCtmkgettimer, &_VTMK4Arg);
   return _VTMK4Arg;
 }
@@ -965,8 +965,8 @@ DWORD bcgetmsgtime(void)
 {
   DWORD _VTMK4Arg;
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCbcgetmsgtime, &_VTMK4Arg);
   return _VTMK4Arg;
 }
@@ -975,8 +975,8 @@ DWORD rtgetmsgtime(void)
 {
   DWORD _VTMK4Arg;
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCrtgetmsgtime, &_VTMK4Arg);
   return _VTMK4Arg;
 }
@@ -993,8 +993,8 @@ DWORD tmkgetevtime(void)
 {
   DWORD _VTMK4Arg;
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCtmkgetevtime, &_VTMK4Arg);
   return _VTMK4Arg;
 }
@@ -1011,8 +1011,8 @@ DWORD tmkgetswtimer(void)
 {
   DWORD _VTMK4Arg;
 #ifdef USE_TMK_ERROR
-  tmkError =
-#endif
+  tmkError = 
+#endif  
   ioctl(_hVTMK4VxD, TMK_IOCtmkgetswtimer, &_VTMK4Arg);
   return _VTMK4Arg;
 }

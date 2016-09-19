@@ -18,56 +18,42 @@ typedef struct
 
 typedef struct
 {
-  unsigned short wResult;
-  unsigned short wAW1;
-  unsigned short wAW2;
-} TBc;
-
-typedef struct
-{
-  unsigned short wBase;
-  unsigned short wResultX;
-} TBcx;
-
-typedef struct
-{
-  unsigned short wStatus;
-  unsigned short wCmd;
-} TRt;
-
-typedef struct
-{
-  unsigned short wBase;
-  unsigned short wResultX;
-} TMt;
-typedef struct
-{
-  unsigned short wStatus;
-} TMrt;
-
-typedef struct
-{
-  unsigned short wRequest;
-
-} TTmk;
-
-typedef union
-{
-  TBc bc;
-  TBcx bcx;
-  TRt rt;
-  TMt mt;
-  TMrt mrt;
-  TTmk tmk;
-} TSub;
-
-typedef struct
-{
   int nInt;
   unsigned short wMode;
-  TSub sub;
-} TTmkEventData; ;
-# 574 "ltmk.h"
+  union
+  {
+    struct
+    {
+      unsigned short wResult;
+      unsigned short wAW1;
+      unsigned short wAW2;
+    } bc;
+    struct
+    {
+      unsigned short wBase;
+      unsigned short wResultX;
+    } bcx;
+    struct
+    {
+      unsigned short wStatus;
+      unsigned short wCmd;
+    } rt;
+    struct
+    {
+      unsigned short wBase;
+      unsigned short wResultX;
+    } mt;
+    struct
+    {
+      unsigned short wStatus;
+    } mrt;
+    struct
+    {
+      unsigned short wRequest;
+    } tmk;
+  };
+} TTmkEventData;
+# 560 "ltmk.h"
 int TmkOpen(void);
 void TmkClose(void);
 
@@ -80,7 +66,6 @@ unsigned short tmkgetmode(void);
 void tmksetcwbits(unsigned short tmkSetControl);
 void tmkclrcwbits(unsigned short tmkClrControl);
 unsigned short tmkgetcwbits(void);
-
 void tmkgetevd(TTmkEventData *pEvD);
 int tmkwaitevents(int maskEvents, int fWait);
 
